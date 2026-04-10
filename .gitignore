@@ -79,6 +79,13 @@ appsettings.*.Development.json
 /*.pdf
 
 # ---------------------------------------------------------------------------
+# Claude Code project state + feature worktrees
+# All Claude-driven work lives under .claude/ so it never pollutes the repo.
+# Individual feature worktrees go in .claude/worktrees/<branch-slug>/.
+# ---------------------------------------------------------------------------
+.claude/
+
+# ---------------------------------------------------------------------------
 # OS cruft
 # ---------------------------------------------------------------------------
 .DS_Store
