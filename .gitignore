@@ -1,0 +1,90 @@
+# ---------------------------------------------------------------------------
+# .NET build output
+# ---------------------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# NuGet packages produced locally (regeneratable via `dotnet pack`)
+nupkg/
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ---------------------------------------------------------------------------
+# Visual Studio / Rider / VS Code
+# ---------------------------------------------------------------------------
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+*.sln.iml
+
+# ---------------------------------------------------------------------------
+# Test results / coverage
+# ---------------------------------------------------------------------------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+
+# ---------------------------------------------------------------------------
+# dotnet tool restore
+# ---------------------------------------------------------------------------
+# Keep dotnet-tools.json (committed intentionally).
+# Ignore the restored tools cache.
+.config/.store/
+
+# ---------------------------------------------------------------------------
+# Local environment / secrets
+# ---------------------------------------------------------------------------
+*.env
+*.local
+secrets.json
+appsettings.*.Development.json
+
+# ---------------------------------------------------------------------------
+# Ad-hoc test PDFs at the repo root (outputs of `pdf-tool separate` etc.)
+# Committed sample PDFs should live under samples/ instead.
+# ---------------------------------------------------------------------------
+/*.pdf
+
+# ---------------------------------------------------------------------------
+# OS cruft
+# ---------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

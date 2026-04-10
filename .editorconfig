@@ -1,0 +1,199 @@
+# ==========================================================================
+# EditorConfig — https://editorconfig.org
+# Solution-wide coding conventions for the pdf-tool repository.
+# Applies to every contributor & IDE (VS, Rider, VS Code, Neovim...).
+# ==========================================================================
+
+root = true
+
+# --------------------------------------------------------------------------
+# Defaults for all files
+# --------------------------------------------------------------------------
+[*]
+charset                  = utf-8
+end_of_line              = lf
+insert_final_newline     = true
+trim_trailing_whitespace = true
+indent_style             = space      # tabs are replaced with spaces
+indent_size              = 2          # project-wide: 2 spaces per indent level
+tab_width                = 2          # if any editor renders a tab, show it as 2 cols
+max_line_length          = 120
+
+[*.md]
+trim_trailing_whitespace = false   # trailing spaces = <br> in Markdown
+max_line_length          = off
+
+# --------------------------------------------------------------------------
+# Windows script files — must use CRLF
+# --------------------------------------------------------------------------
+[*.{cmd,bat,ps1,psm1}]
+end_of_line = crlf
+
+# --------------------------------------------------------------------------
+# Shell scripts
+# --------------------------------------------------------------------------
+[*.{sh,bash}]
+end_of_line = lf
+indent_size = 2
+
+# ==========================================================================
+# C# code style — based on Microsoft defaults, tuned for this project
+# ==========================================================================
+[*.cs]
+indent_size = 2
+tab_width   = 2
+
+# ---- this. and Me. preferences ----
+dotnet_style_qualification_for_field       = false:suggestion
+dotnet_style_qualification_for_property    = false:suggestion
+dotnet_style_qualification_for_method      = false:suggestion
+dotnet_style_qualification_for_event       = false:suggestion
+
+# ---- Language keywords vs BCL types ----
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access             = true:suggestion
+
+# ---- Modifier preferences ----
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+csharp_preferred_modifier_order              = public,private,protected,internal,file,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,required,volatile,async:suggestion
+dotnet_style_readonly_field                  = true:warning
+
+# ---- Parentheses ----
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_binary_operators      = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators             = never_if_unnecessary:suggestion
+
+# ---- Expression-level preferences ----
+dotnet_style_object_initializer                       = true:suggestion
+dotnet_style_collection_initializer                   = true:suggestion
+dotnet_style_prefer_auto_properties                   = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
+dotnet_style_prefer_conditional_expression_over_return     = true:suggestion
+dotnet_style_explicit_tuple_names                     = true:warning
+dotnet_style_prefer_inferred_tuple_names              = true:suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_compound_assignment               = true:suggestion
+dotnet_style_prefer_simplified_boolean_expressions    = true:suggestion
+dotnet_style_prefer_simplified_interpolation          = true:suggestion
+
+# ---- Null checking ----
+dotnet_style_coalesce_expression       = true:suggestion
+dotnet_style_null_propagation          = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+csharp_style_throw_expression          = true:suggestion
+csharp_style_conditional_delegate_call = true:suggestion
+
+# ---- 'var' preferences ----
+csharp_style_var_for_built_in_types    = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere             = true:suggestion
+
+# ---- Expression-bodied members ----
+csharp_style_expression_bodied_methods      = when_on_single_line:suggestion
+csharp_style_expression_bodied_constructors = false:suggestion
+csharp_style_expression_bodied_operators    = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties   = true:suggestion
+csharp_style_expression_bodied_indexers     = true:suggestion
+csharp_style_expression_bodied_accessors    = true:suggestion
+csharp_style_expression_bodied_lambdas      = true:suggestion
+csharp_style_expression_bodied_local_functions = false:suggestion
+
+# ---- Pattern matching ----
+csharp_style_pattern_matching_over_is_with_cast_check    = true:suggestion
+csharp_style_pattern_matching_over_as_with_null_check    = true:suggestion
+csharp_style_prefer_switch_expression                    = true:suggestion
+csharp_style_prefer_pattern_matching                     = true:suggestion
+csharp_style_prefer_not_pattern                          = true:suggestion
+csharp_style_prefer_extended_property_pattern            = true:suggestion
+
+# ---- Modern C# features ----
+csharp_style_inlined_variable_declaration                = true:suggestion
+csharp_prefer_simple_default_expression                  = true:suggestion
+csharp_style_deconstructed_variable_declaration          = true:suggestion
+csharp_style_pattern_local_over_anonymous_function       = true:suggestion
+csharp_using_directive_placement                         = outside_namespace:warning
+csharp_prefer_simple_using_statement                     = true:suggestion
+
+# ---- Namespace declaration style ----
+# Enforce file-scoped namespaces (C# 10+):
+#     namespace PdfTool.Commands;
+# instead of the legacy block-scoped form:
+#     namespace PdfTool.Commands { ... }
+# Reported as a warning so violations surface in build + CI.
+csharp_style_namespace_declarations                      = file_scoped:warning
+dotnet_diagnostic.IDE0161.severity                       = warning
+csharp_style_prefer_method_group_conversion              = true:suggestion
+csharp_style_prefer_top_level_statements                 = false:suggestion
+csharp_style_prefer_primary_constructors                 = false:suggestion
+
+# ---- 'unused' code ----
+dotnet_code_quality_unused_parameters    = all:suggestion
+dotnet_remove_unnecessary_suppression_exclusions = none
+csharp_style_unused_value_assignment_preference            = discard_variable:suggestion
+csharp_style_unused_value_expression_statement_preference  = discard_variable:silent
+
+# ---- dotnet format experimental / layout rules ----
+# Disallow more than one consecutive blank line — keeps diffs tight.
+dotnet_style_allow_multiple_blank_lines_experimental                     = false:warning
+# Require a blank line between a block and the next statement.
+dotnet_style_allow_statement_immediately_after_block_experimental        = false:warning
+# Disallow a curly brace on the same line as the statement that opens it.
+csharp_style_allow_embedded_statements_on_same_line_experimental         = false:warning
+csharp_style_allow_blank_lines_between_consecutive_braces_experimental   = false:warning
+csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true:silent
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental  = true:silent
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = true:silent
+
+# ---- New line preferences ----
+csharp_new_line_before_open_brace                = all
+csharp_new_line_before_else                      = true
+csharp_new_line_before_catch                     = true
+csharp_new_line_before_finally                   = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types     = true
+csharp_new_line_between_query_expression_clauses      = true
+
+# ---- Indentation ----
+csharp_indent_case_contents        = true
+csharp_indent_switch_labels        = true
+csharp_indent_labels               = one_less_than_current
+csharp_indent_block_contents       = true
+csharp_indent_braces               = false
+csharp_indent_case_contents_when_block = false
+
+# ---- Spacing ----
+csharp_space_after_cast                     = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses        = false
+csharp_space_between_parentheses            = false
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_after_colon_in_inheritance_clause  = true
+csharp_space_around_binary_operators        = before_and_after
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
+csharp_space_between_method_call_name_and_opening_parenthesis            = false
+csharp_space_between_method_call_empty_parameter_list_parentheses        = false
+
+# ---- Wrapping ----
+csharp_preserve_single_line_statements = false
+csharp_preserve_single_line_blocks     = true
+
+# ==========================================================================
+# Analyzer severity overrides
+# ==========================================================================
+
+# Category-level bulk severity (applied before per-rule overrides below).
+dotnet_analyzer_diagnostic.category-Style.severity          = suggestion
+dotnet_analyzer_diagnostic.category-CodeQuality.severity    = suggestion
+
+# Treat common code-smell rules as warnings so they surface in CI
+dotnet_diagnostic.IDE0005.severity = warning   # remove unnecessary usings
+dotnet_diagnostic.IDE0051.severity = warning   # remove unused private members
+dotnet_diagnostic.IDE0052.severity = warning   # remove unread private members
+dotnet_diagnostic.IDE0055.severity = warning   # fix formatting (dotnet format whitespace)
+dotnet_diagnostic.IDE0161.severity = warning   # file-scoped namespace
+dotnet_diagnostic.IDE0290.severity = none      # primary constructor suggestions off
+
+# XML doc comments are not required on every public member
+dotnet_diagnostic.CS1591.severity  = none

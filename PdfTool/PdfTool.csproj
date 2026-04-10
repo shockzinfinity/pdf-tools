@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>PdfTool</RootNamespace>
+    <AssemblyName>pdf-tool</AssemblyName>
+    <LangVersion>latest</LangVersion>
+
+    <!-- Make the build honour .editorconfig: any rule at warning severity
+         surfaces during `dotnet build` (and `dotnet format verify`). -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <!-- Needed so IDE0005 (unused usings) runs at build time.
+         CS1591 (missing XML doc) is suppressed via .editorconfig. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+
+    <!-- Global Tool configuration -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>pdf-tool</ToolCommandName>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)../nupkg</PackageOutputPath>
+
+    <!-- Package metadata -->
+    <PackageId>PdfTool</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>shockz</Authors>
+    <Description>A .NET Global Tool for PDF editing: separate, merge, encrypt, etc.</Description>
+    <PackageTags>pdf;cli;global-tool;dotnet-tool</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+    <PackageReference Include="PdfSharp" Version="6.1.1" />
+  </ItemGroup>
+
+</Project>

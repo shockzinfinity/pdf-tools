@@ -1,0 +1,73 @@
+# ---------------------------------------------------------------------------
+# Line ending normalization
+#
+# Default: treat as text, let git auto-convert on checkin, and on checkout
+# use each OS's native line endings. This keeps the repo storage consistent
+# (LF) while giving Windows contributors CRLF in their working tree.
+# ---------------------------------------------------------------------------
+* text=auto eol=lf
+
+# ---------------------------------------------------------------------------
+# .NET source & project files — always LF in repo, language-aware diff
+# ---------------------------------------------------------------------------
+*.cs       text diff=csharp
+*.csx      text diff=csharp
+*.vb       text diff=vb
+*.fs       text diff=fsharp
+*.csproj   text merge=union
+*.fsproj   text merge=union
+*.vbproj   text merge=union
+*.sln      text eol=crlf
+*.slnx     text
+*.props    text
+*.targets  text
+*.nuspec   text
+*.config   text
+
+# ---------------------------------------------------------------------------
+# Structured text
+# ---------------------------------------------------------------------------
+*.json     text
+*.xml      text
+*.yml      text
+*.yaml     text
+*.md       text
+*.txt      text
+*.editorconfig text
+
+# ---------------------------------------------------------------------------
+# Scripts — force OS-appropriate endings so they stay executable on each host
+# ---------------------------------------------------------------------------
+*.sh       text eol=lf
+*.bash     text eol=lf
+Makefile   text eol=lf
+*.cmd      text eol=crlf
+*.bat      text eol=crlf
+*.ps1      text eol=crlf
+*.psm1     text eol=crlf
+
+# ---------------------------------------------------------------------------
+# Binary — never diff, never line-convert
+# ---------------------------------------------------------------------------
+*.pdf      binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.ico      binary
+*.webp     binary
+*.dll      binary
+*.exe      binary
+*.pdb      binary
+*.snk      binary
+*.nupkg    binary
+*.snupkg   binary
+*.zip      binary
+*.7z       binary
+*.tar      binary
+*.gz       binary
+
+# ---------------------------------------------------------------------------
+# GitHub linguist — keep generated/test PDFs out of language stats
+# ---------------------------------------------------------------------------
+*.pdf      linguist-generated=true
