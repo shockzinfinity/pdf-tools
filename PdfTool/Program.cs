@@ -12,7 +12,7 @@ namespace PdfTool;
 /// </summary>
 public static class Program
 {
-  public static async Task<int> Main(string[] args)
+  public static int Main(string[] args)
   {
     var root = new RootCommand("pdf-tool — a .NET Global Tool for PDF editing.");
 
@@ -20,14 +20,14 @@ public static class Program
     // arguments, options, and handler — Program.cs stays thin.
     ICliCommand[] commands =
     [
-      new SeparateCommand()
+      new SeparateCommand(),
       // new MergeCommand(),
       // new EncryptCommand(),
     ];
 
     foreach (var c in commands)
-      root.AddCommand(c.Build());
+      root.Subcommands.Add(c.Build());
 
-    return await root.InvokeAsync(args);
+    return root.Parse(args).Invoke();
   }
 }
