@@ -4,9 +4,9 @@ A cross-platform .NET Global Tool for PDF editing — starts with **separate** (
 into single-page files) and is designed to grow into **merge**, **encrypt**, and more
 without touching existing code.
 
-- **Target framework**: .NET 8 (LTS)
-- **CLI framework**: [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/)
-- **PDF engine**: [PdfSharp 6.x](https://www.pdfsharp.net/) (MIT licensed)
+- **Target framework**: .NET 10
+- **CLI framework**: [System.CommandLine 2.0](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) (GA / stable)
+- **PDF engine**: [PdfSharp 6.2](https://www.pdfsharp.net/) (MIT licensed)
 - **Architecture**: Command pattern via `ICliCommand` — one class per subcommand.
 
 ---
@@ -21,7 +21,7 @@ dotnet pack pdf-tools.slnx -c Release
 
 # 2. Install globally (from the solution root)
 dotnet tool install --global PdfTool \
-    --add-source ./nupkg --version 0.1.0
+    --add-source ./nupkg --version 0.2.0
 ```
 
 ### Update / Uninstall
@@ -83,7 +83,7 @@ pdf-tool separate report.pdf -p "7"
 
 ### Prerequisites
 
-- .NET **8 SDK** or newer (`dotnet --version` ≥ 8.0)
+- .NET **10 SDK** or newer (`dotnet --version` ≥ 10.0)
 
 ### Build & run from source
 
@@ -134,7 +134,7 @@ That's it — `Program.cs` doesn't need to know about arguments or options.
 
 ## Cross-platform support
 
-`pdf-tool` targets .NET 8 and works on **Windows, macOS, and Linux** (x64 and arm64).
+`pdf-tool` targets .NET 10 and works on **Windows, macOS, and Linux** (x64 and arm64).
 
 Design choices that keep it portable:
 

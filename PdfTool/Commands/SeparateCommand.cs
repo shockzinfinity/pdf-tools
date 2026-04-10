@@ -12,35 +12,37 @@ namespace PdfTool.Commands;
 /// </summary>
 public sealed class SeparateCommand : ICliCommand
 {
-  // Extracted to static readonly fields so the arrays are allocated once
-  // at type-init time rather than on every Build() call (satisfies CA1861).
-  private static readonly string[] OutputAliases = { "--output", "-o" };
-  private static readonly string[] PagesAliases = { "--pages", "-p" };
-
   public Command Build()
   {
-    var fileArg = new Argument<FileInfo>(
-        name: "file",
-        description: "Path to the source PDF file.");
+    var fileArg = new Argument<FileInfo>("file")
+    {
+      Description = "Path to the source PDF file.",
+    };
 
-    var outputOption = new Option<DirectoryInfo?>(
-        aliases: OutputAliases,
-        description: "Output directory. Defaults to the source file's directory.");
+    var outputOption = new Option<DirectoryInfo?>("--output", "-o")
+    {
+      Description = "Output directory. Defaults to the source file's directory.",
+    };
 
-    var pagesOption = new Option<string?>(
-        aliases: PagesAliases,
-        description: "Page selection, e.g. '1-3,5,8-10'. Omit to extract every page.");
+    var pagesOption = new Option<string?>("--pages", "-p")
+    {
+      Description = "Page selection, e.g. '1-3,5,8-10'. Omit to extract every page.",
+    };
 
     var cmd = new Command("separate", "Split a PDF into individual single-page files.")
-        {
-            fileArg,
-            outputOption,
-            pagesOption,
-        };
+    {
+      fileArg,
+      outputOption,
+      pagesOption,
+    };
 
-    cmd.SetHandler(
-        (file, output, pages) => Execute(file, output, pages),
-        fileArg, outputOption, pagesOption);
+    cmd.SetAction(parseResult =>
+    {
+      var file = parseResult.GetValue(fileArg)!;
+      var output = parseResult.GetValue(outputOption);
+      var pages = parseResult.GetValue(pagesOption);
+      return Execute(file, output, pages);
+    });
 
     return cmd;
   }

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Collaboration guide for Claude Code working on **pdf-tool** — a .NET 8 Global Tool
+Collaboration guide for Claude Code working on **pdf-tool** — a .NET 10 Global Tool
 for PDF editing. This file is loaded automatically by Claude Code on every
 session in this repository.
 
@@ -8,11 +8,12 @@ session in this repository.
 
 ## Project snapshot
 
-- **Language / runtime**: C# 12 on .NET 8 (LTS). Target framework is pinned in
-  `PdfTool/PdfTool.csproj` (`<TargetFramework>net8.0</TargetFramework>`).
-- **CLI framework**: `System.CommandLine` **2.0.0-beta4.22272.1**. Newer betas
-  have breaking API changes — **do not upgrade casually**.
-- **PDF engine**: `PdfSharp` **6.1.1** (MIT). Avoid iText7 (AGPL) and QuestPDF
+- **Language / runtime**: C# 14 on .NET 10. Target framework is pinned in
+  `PdfTool/PdfTool.csproj` (`<TargetFramework>net10.0</TargetFramework>`).
+- **CLI framework**: `System.CommandLine` **2.0.5** (GA / stable). Uses the new
+  `SetAction(parseResult => ...)` handler pattern — **not** the old beta4
+  `SetHandler` API.
+- **PDF engine**: `PdfSharp` **6.2.4** (MIT). Avoid iText7 (AGPL) and QuestPDF
   (generation-only).
 - **Packaging**: distributed as a .NET Global Tool
   (`<PackAsTool>true</PackAsTool>`, `<ToolCommandName>pdf-tool</ToolCommandName>`).
@@ -144,9 +145,16 @@ This tool runs on **Windows, macOS, and Linux**.
 
 ## Gotchas
 
-- **System.CommandLine beta churn**: stick with beta4. API differences
-  between beta4 and newer betas are non-trivial (`SetHandler` vs.
-  `SetAction`, binder changes, etc.).
+- **System.CommandLine GA API**: the project uses the 2.0 GA API, not the
+  historical beta4 API. Key patterns to remember:
+  - Options: `new Option<T>("--foo", "-f") { Description = "..." }` — aliases
+    are positional constructor args, **not** an array.
+  - Command composition: collection initializer
+    `new Command("name") { arg, opt1, opt2 }`.
+  - Handler: `cmd.SetAction(parseResult => { var x = parseResult.GetValue(opt); ... return 0; })`.
+    There is **no** `SetHandler` with per-symbol binder overloads.
+  - Subcommand registration: `root.Subcommands.Add(sub)`.
+  - Invocation: `root.Parse(args).Invoke()` (sync) or `InvokeAsync()` (async).
 - **PdfSharp `PdfDocumentOpenMode`**: use `Import` when splitting so pages
   can be copied into a new `PdfDocument`. `Modify` will not let you attach
   pages to a second document.
@@ -160,7 +168,11 @@ This tool runs on **Windows, macOS, and Linux**.
 
 - Don't add unit-test frameworks or test projects unless asked — the repo
   is still scaffolding.
-- Don't upgrade `System.CommandLine` past beta4.
+- Don't downgrade `System.CommandLine` back to a beta or switch to another
+  CLI parser (Ookii, CommandLineParser, etc.) — the project has committed
+  to the 2.0 GA API.
+- Don't downgrade the target framework below `net10.0` without an explicit
+  request; the code relies on modern language features and BCL behavior.
 - Don't introduce iText7 or QuestPDF as alternatives. PdfSharp is the
   settled choice for licensing and capability reasons.
 - Don't commit generated PDFs, `nupkg/` content, or `bin/obj/` output.
